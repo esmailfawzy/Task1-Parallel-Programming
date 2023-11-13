@@ -1,75 +1,76 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-#define MAX_EMAIL_LENGTH 50
-#define MAX_PASSWORD_LENGTH 20
-
-struct User {
-    char email[MAX_EMAIL_LENGTH];
-    char password[MAX_PASSWORD_LENGTH];
-};
-
-void registerUser(struct User *users, int *userCount) {
-    if (*userCount >= 10) {
-        printf("Error: Maximum number of users reached.\n");
-        return;
-    }
-
-    printf("Enter email: ");
-    scanf("%s", users[*userCount].email);
-
-    printf("Enter password: ");
-    scanf("%s", users[*userCount].password);
-
-    (*userCount)++;
-    printf("Registration successful!\n");
-}
-
-void loginUser(struct User *users, int userCount) {
-    char email[MAX_EMAIL_LENGTH];
-    char password[MAX_PASSWORD_LENGTH];
-
-    printf("Enter email: ");
-    scanf("%s", email);
-
-    printf("Enter password: ");
-    scanf("%s", password);
-
-    int i;
-    for (i = 0; i < userCount; i++) {
-        if (strcmp(users[i].email, email) == 0 && strcmp(users[i].password, password) == 0) {
-            printf("Login successful!\n");
-            return;
-        }
-    }
-
-    printf("Error: Invalid email or password.\n");
-}
+typedef struct login {
+    int choice;
+    char name[50];
+    char email[60];
+    char password[60];
+    bool flag;
+    char lg_email[50];
+    char lg_pass[50];
+} lg;
 
 int main() {
-    struct User users[10];
-    int userCount = 0;
+    lg lg1;
 
-    int choice;
-    do {
-        printf("\n1. Register\n2. Login\n3. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
+    printf("1 : Register\n");
+    printf("2 : Login\n");
+    scanf("%d", &lg1.choice);
 
-        switch (choice) {
-            case 1:
-                registerUser(users, &userCount);
-                break;
-            case 2:
-                loginUser(users, userCount);
-                break;
-            case 3:
-                printf("Exiting program.\n");
-                break;
-            default:
-                printf("Invalid choice. Try again.\n");
+    if (lg1.choice == 1) {
+        printf("Enter Your Name: ");
+        scanf("%s", lg1.name);
+
+        printf("Enter Your Email: ");
+        scanf("%s", lg1.email);
+
+        printf("Enter Your Password: ");
+        scanf("%s", lg1.password);
+
+        printf("Enter Your Flag 0 or 1: ");
+        scanf("%s", &lg1.flag);
+
+        if (lg1.flag != true && lg1.flag != false) {
+            printf("Please Enter a valid flag (0 or 1)\n");
         }
-    } while (choice != 3);
+
+        printf("Please Enter a Data To Login");
+
+        printf("Enter Your Email: ");
+        scanf("%s", lg1.lg_email);
+
+        printf("Enter Your Password: ");
+        scanf("%s", lg1.lg_pass);
+
+        if (lg1.flag == 1) {
+            if (lg1.lg_email==lg1.email) {
+                printf("User Logged Successfully\n");
+            } else {
+                printf("Email Or Password Is Wrong\n");
+            }
+        } else {
+            printf("Something Is Wrong\n");
+        }
+
+    } else if (lg1.choice == 2) {
+        printf("Enter Your Email: ");
+        scanf("%s", lg1.lg_email);
+
+        printf("Enter Your Password: ");
+        scanf("%s", lg1.lg_pass);
+
+        if (lg1.flag == 1) {
+            if (lg1.lg_email==lg1.email) {
+                printf("User Logged Successfully\n");
+            } else {
+                printf("Email Or Password Is Wrong\n");
+            }
+        } else {
+            printf("Something Is Wrong\n");
+        }
+    }
 
     return 0;
 }
